@@ -20,7 +20,7 @@ from litex.build.openocd import OpenOCD
 _io = [
     # Clk / Rst
     ("clk100",    0, Pins("U10"),  IOStandard("LVCMOS33")),
-    ("rst_n",     0, Pins("AB14"), IOStandard("LVCMOS33")),
+    ("rst_n",     0, Pins("K3"), IOStandard("LVCMOS33")),
 
     # Leds
     ("user_led", 0, Pins("H1"),  IOStandard("LVCMOS33")),
@@ -30,19 +30,19 @@ _io = [
     # Buttons
     ("user_btn_n", 0, Pins("R7"), IOStandard("LVCMOS33")),
 
-    # Serial
-    ("serial", 0, # hdmi
-        Subsignal("tx", Pins("AB19")),
-        Subsignal("rx", Pins("AA21")),
-        IOStandard("LVCMOS33")
-    ),
+    # Serial - Not available
+    #("serial", 0, # hdmi
+    #    Subsignal("tx", Pins("AB19")),
+    #    Subsignal("rx", Pins("AA21")),
+    #    IOStandard("LVCMOS33")
+    #),
 
-    # Serial
-    ("serial", 1, # dvi
-        Subsignal("tx", Pins("C14")),
-        Subsignal("rx", Pins("C17")),
-        IOStandard("LVCMOS33")
-    ),
+    # Serial - Not available
+    #("serial", 1, # dvi
+    #    Subsignal("tx", Pins("C14")),
+    #    Subsignal("rx", Pins("C17")),
+    #    IOStandard("LVCMOS33")
+    #),
 
     # SPIFlash
     ("spiflash", 0,
@@ -54,53 +54,31 @@ _io = [
 
     # DDR2 SDRAM
     ("ddram_clock_a", 0,
-        Subsignal("p", Pins("H20")),
-        Subsignal("n", Pins("J19")),
-        IOStandard("DIFF_SSTL18_II"), Misc("IN_TERM=NONE")
+        Subsignal("p", Pins("J17")),
+        Subsignal("n", Pins("J16")),
+        IOStandard("LVCMOS18"), Misc("IN_TERM=NONE")
     ),
     ("ddram_a", 0,
-        Subsignal("a", Pins(
-            "F21 F22 E22 G20 F20 K20 K19 E20",
-            "C20 C22 G19 F19 D22"),
-            IOStandard("SSTL18_II")),
-        Subsignal("ba",    Pins("J17 K17 H18"), IOStandard("SSTL18_II")),
-        Subsignal("ras_n", Pins("H21"), IOStandard("SSTL18_II")),
-        Subsignal("cas_n", Pins("H22"), IOStandard("SSTL18_II")),
-        Subsignal("we_n",  Pins("H19"), IOStandard("SSTL18_II")),
-        Subsignal("dm",    Pins("M20 L19"), IOStandard("SSTL18_II")),
+        Subsignal("a", 
+                  Pins(
+            "F11 D13 E13 E11 B16 A16 A12 A11 D14 A14 B14 A13"),
+            IOStandard("LVCMOS18")),
+        Subsignal("ba",    Pins("F12 E12"), IOStandard("LVCMOS18")),
+        Subsignal("ras_n", Pins("H14"), IOStandard("LVCMOS18")),
+        Subsignal("cas_n", Pins("M14"), IOStandard("LVCMOS18")),
+        Subsignal("we_n",  Pins("P16"), IOStandard("LVCMOS18")),
+        Subsignal("dm",    Pins("K12 K13 J14 H15"), IOStandard("LVCMOS18")),
         Subsignal("dq",    Pins(
-            "N20 N22 M21 M22 J20 J22 K21 K22",
-            "P21 P22 R20 R22 U20 U22 V21 V22"),
-            IOStandard("SSTL18_II")),
-        Subsignal("dqs",   Pins("T21 L20"), IOStandard("DIFF_SSTL18_II")),
-        Subsignal("dqs_n", Pins("T22 L22"), IOStandard("DIFF_SSTL18_II")),
-        Subsignal("cke", Pins("D21"), IOStandard("SSTL18_II")),
-        Subsignal("odt", Pins("G22"), IOStandard("SSTL18_II")),
-    ),
-    ("ddram_clock_b", 0,
-        Subsignal("p", Pins("H4")),
-        Subsignal("n", Pins("H3")),
-        IOStandard("DIFF_SSTL18_II"), Misc("IN_TERM=NONE")
-    ),
-    ("ddram_b", 0,
-        Subsignal("a", Pins(
-            "H2 H1 H5 K6 F3 K3 J4 H6",
-            "E3 E1 G4 C1 D1"),
-            IOStandard("SSTL18_II")),
-        Subsignal("ba",    Pins("G3 G1 F1"), IOStandard("SSTL18_II")),
-        Subsignal("ras_n", Pins("K5"), IOStandard("SSTL18_II")),
-        Subsignal("cas_n", Pins("K4"), IOStandard("SSTL18_II")),
-        Subsignal("we_n",  Pins("F2"), IOStandard("SSTL18_II")),
-        Subsignal("dm",    Pins("M3 L4"), IOStandard("SSTL18_II")),
-        Subsignal("dq",    Pins(
-            "N3 N1 M2 M1 J3 J1 K2 K1",
-            "P2 P1 R3 R1 U3 U1 V2 V1"),
-            IOStandard("SSTL18_II")),
-        Subsignal("dqs",   Pins("T2 L3"), IOStandard("DIFF_SSTL18_II")),
-        Subsignal("dqs_n", Pins("T1 L1"), IOStandard("DIFF_SSTL18_II")),
-        Subsignal("cke", Pins("D2"), IOStandard("SSTL18_II")),
-        Subsignal("odt", Pins("J6"), IOStandard("SSTL18_II")),
-    ),
+            "T17 U18 T18 R18 N14 N15 P18 P17",
+            "M16 M15 M18 N18 L15 L16 K14 K15",
+            "J13 J12 H17 H16 G16 G15 G13 G14",
+            "F17 F18 F14 F15 D16 D17 C17 C18"),
+            IOStandard("LVCMOS18")),
+        Subsignal("dqs",   Pins("R15 L18 J15 E16"), IOStandard("LVCMOS18")),
+        #Subsignal("dqs_n", Pins("T22 L22"), IOStandard("LVCMOS18")),
+        Subsignal("cke", Pins("E15"), IOStandard("LVCMOS18")),
+        #Subsignal("odt", Pins("G22"), IOStandard("LVCMOS18")),
+    ),    
 
     # GMII Ethernet
     ("eth_rst_n",  0, Pins("K3"), IOStandard("LVCMOS33")),
@@ -117,10 +95,10 @@ _io = [
         Subsignal("mdc",     Pins("T2")),
         Subsignal("rx_dv",   Pins("R1")),
         Subsignal("rx_er",   Pins("U1")),
-        Subsignal("rx_data", Pins("Y3 Y4 R9 R7 V9 R8 U9 Y9")),
+        Subsignal("rx_data", Pins("N2 N1 M1 K7")),
         Subsignal("tx_en",   Pins("R3")),
         Subsignal("tx_er",   Pins("R2")),
-        Subsignal("tx_data", Pins("AB2 AB3 AB4 AB7 AB9 AB10 T7 Y10")),
+        Subsignal("tx_data", Pins("P4 P1 P2 P3")),
         Subsignal("col",     Pins("N5")),
         Subsignal("crs",     Pins("N4")),
         IOStandard("LVCMOS33")
